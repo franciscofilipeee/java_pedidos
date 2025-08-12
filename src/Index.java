@@ -36,7 +36,7 @@ public class Index {
 
     public static void pedidos() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Menu Principal" +
+        System.out.println("Pedidos" +
                 "\n1-Incluir Pedido" +
                 "\n2-Alterar Pedido" +
                 "\n3-Excluir Pedido" +
@@ -67,7 +67,7 @@ public class Index {
 
     public static void clientes() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Menu Principal" +
+        System.out.println("Clientes" +
                 "\n1-Incluir Cliente" +
                 "\n2-Alterar Cliente" +
                 "\n3-Excluir Cliente" +
@@ -99,7 +99,7 @@ public class Index {
 
     public static void produtos() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Menu Principal" +
+        System.out.println("Produtos" +
                 "\n1-Incluir Produto" +
                 "\n2-Alterar Produto" +
                 "\n3-Excluir Produto" +
@@ -172,11 +172,10 @@ public class Index {
 
     public static void cadastrarPedidos() {
         Pedido ped = new Pedido();
+        ItemPedido it = new ItemPedido();
         Scanner sc = new Scanner(System.in);
         System.out.println("Escreva o status do pedido: ");
         String status = sc.next();
-        System.out.println("Escreva a data do pedido: ");
-        String data = sc.next();
         System.out.println("Escreva o código do cliente: ");
         int codCli = sc.nextInt();
         while(true) {
@@ -184,6 +183,14 @@ public class Index {
             int codProduto = sc.nextInt();
             if(codProduto == 0)
                 break;
+            System.out.println("Digite a quantidade do produto: ");
+            int qtd = sc.nextInt();
+            Produto pro = ProdutoDAO.listarProduto(codProduto);
+            it.setPedido(ped);
+            it.setProduto(pro);
+            it.setQuantidade(qtd);
+            it.setPrecoUnit(pro.getPreco());
+            ItemPedidoDAO.inserirItemPedido(it);
         }
         Cliente cli = ClienteDAO.listarCliente(codCli);
         ped.setStatus(status);
@@ -265,8 +272,6 @@ public class Index {
         Pedido ped = PedidoDAO.listarPedido(id);
         System.out.println("Escreva o novo status do pedido: (antigo: " + ped.getStatus() + ".");
         String status = sc.next();
-        System.out.println("Escreva a nova data do pedido: (antigo: " + ped.getData() + ".");
-        String data = sc.next();
         System.out.println("Escreva o código do novo cliente do pedido: (antigo: " + ped.getCliente() + ".");
         int idCli = sc.nextInt();
         Cliente cli = ClienteDAO.listarCliente(idCli);

@@ -75,7 +75,7 @@ public class ClienteDAO {
         ResultSet rs = null;
         Cliente cli = new Cliente();
         try {
-            String sql = "SELECT * FROM cliente WHERE id=?;";
+            String sql = "SELECT * FROM cliente WHERE codCliente=?;";
             stat = conexao.prepareStatement(sql);
             stat.setInt(1, id);
             rs = stat.executeQuery();

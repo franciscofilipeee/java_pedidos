@@ -93,9 +93,9 @@ public class PedidoDAO {
         try {
             String sql = "INSERT INTO pedido(data, status, cliente) VALUES(?,?,?)";
             stat=conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stat.setString(1, ped.getStatus());
-            stat.setString(2, ped.getCliente().toString());
-            stat.setDate(3, Date.valueOf(LocalDate.now()));
+            stat.setDate(1, Date.valueOf(LocalDate.now()));
+            stat.setString(2, ped.getStatus());
+            stat.setInt(3, ped.getCliente().getCodCliente());
             stat.execute();
             System.out.println("Cadastro feito com sucesso!");
             return true;
@@ -111,9 +111,10 @@ public class PedidoDAO {
         PreparedStatement stat = null;
         Connection conexao = Conexao.criarConexao();
         try {
-            String sql = "DELETE FROM pedidos WHERE codPedido=?";
+            String sql = "DELETE FROM pedidos WHERE codPedido=?; DELETE FROM item_pedido WHERE Pedido=?";
             stat=conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stat.setInt(1, id);
+            stat.setInt(2, id);
             stat.execute();
             System.out.println("Exclusão feita com sucesso!");
             return true;

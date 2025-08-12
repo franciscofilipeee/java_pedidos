@@ -6,8 +6,8 @@ public class Conexao {
     public static Connection criarConexao() {
         String driver = "com.mysql.cj.jdbc.Driver";
         String servidor = "jdbc:mysql://localhost:3306/pedidos";
-        String usuario = "";
-        String senha = "";
+        String usuario = "root";
+        String senha = "@Root123";
         try {
             Class.forName(driver);
             return DriverManager.getConnection(servidor,usuario,senha);
